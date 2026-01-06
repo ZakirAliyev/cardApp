@@ -1,0 +1,42 @@
+.heroWrapper {
+  position: relative;
+}
+
+/* HERO */
+#hero {
+  width: 100%;
+  aspect-ratio: 4/1;
+  position: relative;
+  overflow: hidden;
+
+  @media (max-width: 992px) {
+    aspect-ratio: 2/1;
+  }
+}
+
+.heroImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  scale: 1.02;
+}
+
+/* PROFILE IMAGE (overlap) */
+.profileContainer {
+  position: relative;
+}
+
+.profileImage {
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  position: absolute;
+  top: -110px;          /* yarısı hero içində, yarısı kartda */
+  left: 16px;
+  z-index: 50;          /* kartdan yuxarı */
+
+  @media (max-width: 992px) {
+    display: none;
+  }
+}
