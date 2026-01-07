@@ -1,17 +1,18 @@
 import "./index.scss";
-import { useTranslation } from "react-i18next";
-
-import instagram from "/src/assets/icons/instagram.svg";
-import whatsapp from "/src/assets/icons/whatsapp.svg";
-import facebook from "/src/assets/icons/facebook.svg";
-import linkedin from "/src/assets/icons/linkedin.svg";
-import letter from "/src/assets/icons/letter.svg";
-import phone from "/src/assets/icons/phone.svg";
+import {useTranslation} from "react-i18next";
+import redLetter from "/src/assets/icons/redLetter.svg";
+import redPhone from "/src/assets/icons/redPhone.svg";
+import redFacebook from "/src/assets/icons/redFacebook.svg";
+import redLinkedin from "/src/assets/icons/redLinkedin.svg";
+import redInstagram from "/src/assets/icons/redInstagram.svg";
+import redWhatsapp from "/src/assets/icons/redWhatsapp.svg";
+import whiteInstagram from "/src/assets/icons/whiteInstagram.svg";
+import whiteFacebook from "/src/assets/icons/whiteFacebook.svg";
 
 const defaultProfile = "data:image/png;base64,....";
 
-function Info({ user }) {
-    const { t, i18n } = useTranslation();
+function Info({user}) {
+    const {t, i18n} = useTranslation();
     const lang = i18n.language;
 
     const displayName =
@@ -52,6 +53,22 @@ function Info({ user }) {
     // MAILTO
     const mailUrl = user?.email ? `mailto:${user.email}` : null;
 
+    function normalizeUrl(url) {
+        if (!url) return "";
+        if (!/^https?:\/\//i.test(url)) {
+            return "https://" + url;
+        }
+        return url;
+    }
+
+    function formatWebsite(url) {
+        if (!url) return "";
+
+        return url
+            .replace(/^https?:\/\//, "")
+            .replace(/\/$/, "");
+    }
+
     return (
         <section id="info">
             <div className="container">
@@ -63,26 +80,38 @@ function Info({ user }) {
                         alt="Profile"
                     />
 
-                    <div style={{ width: "100%" }}>
+                    <div style={{width: "100%"}}>
                         <div className="nameWrapper">
                             <div className="name">{displayName}</div>
 
                             <div className="links">
                                 {user?.instagram_link && (
-                                    <a href={user.instagram_link} target="_blank" rel="noopener noreferrer" className="link">
-                                        <img src={instagram} className="icon" />
+                                    <a href={user.instagram_link} target="_blank" rel="noopener noreferrer"
+                                       className="link">
+                                        <img src={redInstagram} className="icon"/>
                                     </a>
                                 )}
 
+                                {whatsappUrl && (
+                                    <a
+                                        href={whatsappUrl}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="link"
+                                    >
+                                        <img src={redWhatsapp} className="icon"/>
+                                    </a>
+                                )}
                                 {user?.facebook_link && (
-                                    <a href={user.facebook_link} target="_blank" rel="noopener noreferrer" className="link">
-                                        <img src={facebook} className="icon" />
+                                    <a href={user.facebook_link} target="_blank" rel="noopener noreferrer"
+                                       className="link">
+                                        <img src={redFacebook} className="icon"/>
                                     </a>
                                 )}
-
                                 {user?.linkedin_link && (
-                                    <a href={user.linkedin_link} target="_blank" rel="noopener noreferrer" className="link">
-                                        <img src={linkedin} className="icon" />
+                                    <a href={user.linkedin_link} target="_blank" rel="noopener noreferrer"
+                                       className="link">
+                                        <img src={redLinkedin} className="icon"/>
                                     </a>
                                 )}
                             </div>
@@ -98,91 +127,178 @@ function Info({ user }) {
 
                 <div className="description">{displayDescription}</div>
 
-                <div className="title">{t("contactTitle")}</div>
+                <div style={{
+                    backgroundColor: "#F3F3F3",
+                    padding: '16px',
+                    marginTop: '16px',
+                    borderRadius: '0 135px 0 0'
+                }}>
+                    <div className="title">{t("contactTitle")}</div>
 
-                {/* EMAIL */}
-                <div className="linkWrapper">
-                    <div className="link">
-                        <img src={letter} className="icon" />
-                    </div>
-                    <span>{t("mail")}:</span>
-
-                    {mailUrl ? (
-                        <a href={mailUrl} className="span">
-                            {user?.email}
-                        </a>
-                    ) : (
-                        <span className="span">{user?.email}</span>
-                    )}
-                </div>
-
-                {/* PHONE / WHATSAPP */}
-                {(whatsappUrl || telUrl) && (
+                    {/* EMAIL */}
                     <div className="linkWrapper">
-                        <div className="link">
-                            <img src={phone} className="icon" />
+                        <div className="link" style={{
+                            backgroundColor: "white",
+                        }}>
+                            <img src={redLetter} className="icon"/>
                         </div>
+                        <span>{t("mail")}:</span>
 
-                        <span>{t("mobile")}:</span>
-
-                        {telUrl ? (
-                            <a href={telUrl} className="span">
-                                {user?.mobile_phone}
+                        {mailUrl ? (
+                            <a href={mailUrl} className="span">
+                                {user?.email}
                             </a>
                         ) : (
-                            <span className="span">{user?.mobile_phone}</span>
+                            <span className="span">{user?.email}</span>
                         )}
                     </div>
-                )}
 
-                <div className="title asd">{t("socialMedia")}</div>
+                    {(whatsappUrl || telUrl) && (
+                        <div className="linkWrapper">
+                            <div className="link" style={{
+                                backgroundColor: "white",
+                            }}>
+                                <img src={redPhone} className="icon"/>
+                            </div>
 
-                <div className="socialMediaWrapper">
-                    {user?.instagram_link && (
-                        <a
-                            href={user.instagram_link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="socialMedia"
-                        >
-                            <img src={instagram} className="icon" /><span>Instagram</span>
-                        </a>
+                            <span>{t("mobile")}:</span>
+
+                            {telUrl ? (
+                                <a href={telUrl} className="span">
+                                    {user?.mobile_phone}
+                                </a>
+                            ) : (
+                                <span className="span">{user?.mobile_phone}</span>
+                            )}
+                        </div>
                     )}
 
-                    {whatsappUrl && (
-                        <a
-                            href={whatsappUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="socialMedia"
-                        >
-                            <img src={whatsapp} className="icon" /><span>WhatsApp</span>
-                        </a>
-                    )}
+                    <div className="title asd">{t("socialMedia")}</div>
 
-                    {user?.facebook_link && (
-                        <a
-                            href={user.facebook_link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="socialMedia"
-                        >
-                            <img src={facebook} className="icon" /><span>Facebook</span>
-                        </a>
-                    )}
+                    <div className="socialMediaWrapper">
+                        {user?.instagram_link && (
+                            <a
+                                href={user.instagram_link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="socialMedia"
+                            >
+                                <img src={redInstagram} className="icon"/><span>Instagram</span>
+                            </a>
+                        )}
 
-                    {user?.linkedin_link && (
-                        <a
-                            href={user.linkedin_link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="socialMedia"
-                        >
-                            <img src={linkedin} className="icon" /><span>LinkedIn</span>
-                        </a>
-                    )}
+                        {whatsappUrl && (
+                            <a
+                                href={whatsappUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="socialMedia"
+                            >
+                                <img src={redWhatsapp} className="icon"/><span>WhatsApp</span>
+                            </a>
+                        )}
+
+                        {user?.facebook_link && (
+                            <a
+                                href={user.facebook_link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="socialMedia"
+                            >
+                                <img src={redFacebook} className="icon"/><span>Facebook</span>
+                            </a>
+                        )}
+
+                        {user?.linkedin_link && (
+                            <a
+                                href={user.linkedin_link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="socialMedia"
+                            >
+                                <img src={redLinkedin} className="icon"/><span>LinkedIn</span>
+                            </a>
+                        )}
+                    </div>
                 </div>
 
+                <div style={{
+                    padding: '16px',
+                    marginTop: '16px',
+                    borderRadius: '0 135px 0 0',
+                    paddingTop: '8px'
+                }}>
+                    <div className="title">{t("companyTitle")}</div>
+
+                    <div className="description" style={{
+                        padding: '0'
+                    }}>{displayDescription}</div>
+
+                    {/* EMAIL */}
+                    <div className="linkWrapper">
+                        <div className="link" style={{
+                            backgroundColor: "white",
+                        }}>
+                            <img src={redLetter} className="icon"/>
+                        </div>
+                        <span>{t("mail")}:</span>
+
+                        {mailUrl ? (
+                            <a href={mailUrl} className="span">
+                                {user?.email}
+                            </a>
+                        ) : (
+                            <span className="span">{user?.email}</span>
+                        )}
+                    </div>
+
+                    {(whatsappUrl || telUrl) && (
+                        <div className="linkWrapper">
+                            <div className="link" style={{
+                                backgroundColor: "white",
+                            }}>
+                                <img src={redPhone} className="icon"/>
+                            </div>
+
+                            <span>{t("mobile")}:</span>
+
+                            {telUrl ? (
+                                <a href={telUrl} className="span">
+                                    {user?.mobile_phone}
+                                </a>
+                            ) : (
+                                <span className="span">{user?.mobile_phone}</span>
+                            )}
+                        </div>
+                    )}
+
+                    <div className="title asd">{t("socialMedia")}</div>
+
+                    <div className={"companySocialMediaWrapper"}>
+                        <div className={"companySocialMedia"}>
+                            <img src={whiteInstagram} alt={"Icon"} className={"cSocialMediaIcon"}/>
+                            <p>Instagram</p>
+                        </div>
+                        <div className={"divider"}></div>
+                        <div className={"companySocialMedia"}>
+                            <img src={whiteFacebook} alt={"Icon"} className={"cSocialMediaIcon"}/>
+                            <p>Facebook</p>
+                        </div>
+                    </div>
+
+                    <div className={"website"}>
+                        <div className={"stick"}></div>
+                        <a
+                            className="websiteUrl"
+                            href={normalizeUrl(user?.website_link)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            {formatWebsite(user?.website_link)}
+                        </a>
+                        <div className={"stick"}></div>
+                    </div>
+                </div>
             </div>
         </section>
     );
