@@ -6,13 +6,16 @@ import {Provider} from "react-redux";
 import {store} from "./services/store.jsx";
 import {ThemeProvider} from "./context/ThemeContext/index.jsx";
 import {LanguageProvider} from "./context/LanguageContext/index.jsx";
+import {HelmetProvider} from "react-helmet-async";
 
 createRoot(document.getElementById('root')).render(
-    <ThemeProvider>
-        <LanguageProvider>
-            <Provider store={store}>
-                <App/>
-            </Provider>
-        </LanguageProvider>
-    </ThemeProvider>
+    <HelmetProvider>
+        <ThemeProvider>
+            <LanguageProvider>
+                <Provider store={store}>
+                    <App/>
+                </Provider>
+            </LanguageProvider>
+        </ThemeProvider>
+    </HelmetProvider>
 )
