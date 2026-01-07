@@ -2,9 +2,9 @@ import "./index.scss";
 import { useState, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import worldIcon from "/src/assets/icons/world.svg";
-import uk from "/src/assets/flags/uk.png"
-import ru from "/src/assets/flags/ru.png"
-import az from "/src/assets/flags/az.png"
+import uk from "/src/assets/flags/uk.png";
+import ru from "/src/assets/flags/ru.png";
+import az from "/src/assets/flags/az.png";
 
 function Navbar() {
     const { i18n } = useTranslation();
@@ -38,14 +38,17 @@ function Navbar() {
 
                     <div className={`dropdown ${open ? "show" : ""}`}>
                         <div onClick={() => changeLang("en")}>
-                            <img src={uk} alt={"Flag"} className={"flag"}/>
-                            English</div>
+                            <img src={uk} alt="Flag" className="flag" />
+                            English
+                        </div>
                         <div onClick={() => changeLang("az")}>
-                            <img src={az} alt={"Flag"} className={"flag"}/>
-                            Azərbaycanca</div>
+                            <img src={az} alt="Flag" className="flag" />
+                            Azərbaycanca
+                        </div>
                         <div onClick={() => changeLang("ru")}>
-                            <img src={ru} alt={"Flag"} className={"flag"}/>
-                            Русский</div>
+                            <img src={ru} alt="Flag" className="flag" />
+                            Русский
+                        </div>
                     </div>
                 </nav>
             </div>

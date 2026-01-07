@@ -58,3 +58,9 @@ button, a, .link {
 @media screen and (max-width: 576px) {
   @include generate-cols('col-xs-');
 }
+
+.zakir {
+  @media (max-width: 992px) {
+    background: #f3f3f3;
+  }
+}

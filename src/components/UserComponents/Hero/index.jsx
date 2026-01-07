@@ -1,8 +1,8 @@
 import "./index.scss";
 import { useTranslation } from "react-i18next";
 
-const defaultHero = "data:image/png;base64,....";
-const defaultProfile = "data:image/png;base64,....";
+import bannerPlaceholder from "/src/assets/images/bannerPlaceholder.png";
+import profilePlaceholder from "/src/assets/images/profilePlaceholder.png";
 
 function Hero({ user }) {
     const { t } = useTranslation();
@@ -12,14 +12,14 @@ function Hero({ user }) {
             ? user.background
             : user?.background
                 ? `data:image/png;base64,${user.background}`
-                : defaultHero;
+                : bannerPlaceholder;
 
     const avatarSrc =
         user?.avatar?.startsWith("data:")
             ? user.avatar
             : user?.avatar
                 ? `data:image/png;base64,${user.avatar}`
-                : defaultProfile;
+                : profilePlaceholder;
 
     return (
         <div className="heroWrapper">
